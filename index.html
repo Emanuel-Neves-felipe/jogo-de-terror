@@ -145,12 +145,12 @@
     <div id="menu">
         <h1>🔴 JOGO DE TERROR 3D 🔴</h1>
         <p>Sobreviva ao horror que o aguarda</p>
-        <button onclick="startGame()">Iniciar Jogo</button>
+        <button id="startBtn">Iniciar Jogo</button>
         <p style="margin-top: 40px; font-size: 14px;">
             <strong>Controles:</strong><br>
             WASD - Movimento<br>
             Mouse - Olhar ao redor<br>
-            Click - Disparar lanterna/Atacar<br>
+            Shift - Correr<br>
             ESC - Menu
         </p>
     </div>
@@ -167,6 +167,30 @@
 
     <div id="crosshair"></div>
 
-    <script type="module" src="/src/index.js"></script>
+    <script type="module">
+        import { Game } from './src/Game.js'
+
+        let game = null
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            const menu = document.getElementById('menu')
+            menu.classList.add('hidden')
+            
+            if (!game) {
+                game = new Game()
+            }
+            game.start()
+        })
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                const menu = document.getElementById('menu')
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden')
+                    if (game) game.pause()
+                }
+            }
+        })
+    </script>
 </body>
 </html>
