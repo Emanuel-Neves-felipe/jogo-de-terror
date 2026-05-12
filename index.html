@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Terror 3D</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #canvas {
+            display: block;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-shadow: 0 0 10px #00ff00;
+            z-index: 10;
+        }
+
+        #hud-info {
+            margin-bottom: 10px;
+            border: 1px solid #00ff00;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        #health-bar {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            width: 200px;
+            height: 30px;
+            border: 2px solid #ff0000;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10;
+        }
+
+        #health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #ffff00, #ff0000);
+            width: 100%;
+            transition: width 0.3s;
+        }
+
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        #crosshair::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background: #00ff00;
+            left: 50%;
+            top: -8px;
+            transform: translateX(-50%);
+        }
+
+        #crosshair::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background: #00ff00;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+        }
+
+        #menu {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            color: #ff0000;
+            text-align: center;
+        }
+
+        #menu h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px #ff0000;
+        }
+
+        #menu p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        #menu button {
+            padding: 15px 40px;
+            font-size: 20px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+        }
+
+        #menu button:hover {
+            background-color: #cc0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        #menu.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h1>🔴 JOGO DE TERROR 3D 🔴</h1>
+        <p>Sobreviva ao horror que o aguarda</p>
+        <button onclick="startGame()">Iniciar Jogo</button>
+        <p style="margin-top: 40px; font-size: 14px;">
+            <strong>Controles:</strong><br>
+            WASD - Movimento<br>
+            Mouse - Olhar ao redor<br>
+            Click - Disparar lanterna/Atacar<br>
+            ESC - Menu
+        </p>
+    </div>
+
+    <div id="hud" class="hidden">
+        <div id="hud-info">
+            FPS: <span id="fps">60</span> | Saúde: <span id="health-text">100</span>%
+        </div>
+    </div>
+
+    <div id="health-bar" class="hidden">
+        <div id="health-fill"></div>
+    </div>
+
+    <div id="crosshair"></div>
+
+    <script type="module" src="/src/index.js"></script>
+</body>
+</html>
