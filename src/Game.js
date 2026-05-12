@@ -103,7 +103,7 @@ export class Game {
         }
 
         document.getElementById('fps').textContent = this.fps
-        document.getElementById('health-text').textContent = this.player.health
+        document.getElementById('health-text').textContent = Math.round(this.player.health)
         document.getElementById('health-fill').style.width = (this.player.health) + '%'
     }
 
